@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometria Kvíz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #game-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #0066cc;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        #question {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e6f2ff;
+            border-radius: 10px;
+        }
+        .btn {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #0052a3;
+        }
+        #score-board {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #555;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Trigonometria Villámkvíz</h1>
+    <div id="quiz-area">
+        <div id="question">Kérdés betöltése...</div>
+        <div id="options">
+            </div>
+        <div id="score-board">Pontszám: <span id="score">0</span> / <span id="total">0</span></div>
+    </div>
+    
+    <div id="result-area" class="hidden">
+        <h2>Vége a játéknak!</h2>
+        <p>Elért pontszámod: <span id="final-score">0</span></p>
+        <button class="btn" onclick="startGame()">Újrajeltszás</button>
+    </div>
+</div>
+
+<script>
+    // Itt tudod módosítani a kérdéseket!
+    const questions = [
+        { q: "sin(30°)", options: ["0.5", "1", "0", "0.866"], answer: "0.5" },
+        { q: "cos(60°)", options: ["1", "0.5", "0.707", "0"], answer: "0.5" },
+        { q: "tan(45°)", options: ["0", "0.5", "1", "Nincs értelmezve"], answer: "1" },
+        { q: "sin²(x) + cos²(x) =", options: ["0", "2", "x", "1"], answer: "1" },
+        { q: "cos(90°)", options: ["1", "0", "-1", "0.5"], answer: "0" }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const scoreEl = document.getElementById('score');
+    const totalEl = document.getElementById('total');
+    const quizArea = document.getElementById('quiz-area');
+    const resultArea = document.getElementById('result-area');
+    const finalScoreEl = document.getElementById('final-score');
+
+    function startGame() {
+        currentQuestionIndex = 0;
+        score = 0;
+        scoreEl.innerText = score;
+        totalEl.innerText = questions.length;
+        quizArea.classList.remove('hidden');
+        resultArea.classList.remove('hidden');
+        resultArea.classList.add('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        optionsEl.innerHTML = '';
+        const currentQ = questions[currentQuestionIndex];
+        questionEl.innerText = currentQ.q;
+
+        // Gombok létrehozása a válaszoknak
+        currentQ.options.forEach(option => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.classList.add('btn');
+            button.onclick = () => checkAnswer(option);
+            optionsEl.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedOption) {
+        const currentQ = questions[currentQuestionIndex];
+        if (selectedOption === currentQ.answer) {
+            score++;
+            scoreEl.innerText = score;
+        }
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        quizArea.classList.add('hidden');
+        resultArea.classList.remove('hidden');
+        finalScoreEl.innerText = `${score} / ${questions.length}`;
+    }
+
+    // Játék indítása az oldal betöltésekor
+    startGame();
+</script>
+
+</body>
+</html>
