@@ -192,21 +192,41 @@
 
 <script>
     const questions = [
-        { q: "Az a szakasz, amely a háromszög csúcsát a szemközti oldal felezőpontjával köti össze.", options: ["Súlyvonal", "Magasságvonal", "Szögfelező", "Oldalfelező merőleges"], answer: "Súlyvonal" },
-        { q: "A háromszög azon pontja, amely a szakaszokat a csúcstól számítva 2:1 arányban osztja fel.", options: ["Magasságpont", "Beírt kör középpontja", "Súlypont", "Körülírt kör középpontja"], 
-            answer: "Súlypont" },
-        { q: "Azon pontok halmaza, amelyek egyenlő távolságra vannak a szög két szárától.", options: ["Súlyvonal", "Középvonal", "Belső szögfelező", "Magasságvonal"], answer: "Belső szögfelező" },
-        { 
-            q: "A háromszög azon pontja, amely a háromszög mindhárom oldalegyenesétől azonos távolságra fekszik.", 
-            options: ["Súlypont", "Magasságpont", "Körülírt kör középpontja", "Beírt kör középpontja"], 
-            answer: "Beírt kör középpontja" 
-        },
-        { q: "A csúcsból a szemközti oldal egyenesére bocsátott merőleges szakasz.", options: ["Oldalfelező merőleges", "Magasság", "Súlyvonal", "Szögfelező"], answer: "Magasság" },
-        { q: "Merőleges a háromszög adott oldalára, és átmegy annak felezőpontján. Nem feltétlenül megy át a szemközti csúcson.", options: ["Magasságvonal", "Oldalfelező merőleges", "Súlyvonal", "Belső szögfelező"], answer: "Oldalfelező merőleges" },
-        q: "Az oldalfelező merőlegesek metszéspontja adja meg ezt a nevezetes pontot.", 
-            options: ["Körülírt kör középpontja", "Beírt kör középpontja", "Súlypont", "Magasságpont"], 
-            answer: "Körülírt kör középpontja" 
-        }
+      {
+        q: "A háromszög azon pontja, amely a szakaszokat a csúcstól számítva 2:1 arányban osztja fel.",
+        options: ["Magasságpont", "Beírt kör középpontja", "Súlypont", "Körülírt kör középpontja"],
+        answer: "Súlypont"
+      },
+      {
+        q: "Merőleges a háromszög adott oldalára, és átmegy annak felezőpontján. Nem feltétlenül megy át a szemközti csúcson.",
+        options: ["Magasságvonal", "Oldalfelező merőleges", "Súlyvonal", "Belső szögfelező"],
+        answer: "Oldalfelező merőleges"
+      },
+      {
+        q: "Az a szakasz, amely a háromszög csúcsát a szemközti oldal felezőpontjával köti össze.",
+        options: ["Magasságvonal", "Szögfelező", "Oldalfelező merőleges", "Súlyvonal"],
+        answer: "Súlyvonal"
+      },
+      {
+        q: "Az oldalfelező merőlegesek metszéspontja adja meg ezt a nevezetes pontot.",
+        options: ["Beírt kör középpontja", "Súlypont", "Körülírt kör középpontja", "Magasságpont"],
+        answer: "Körülírt kör középpontja"
+      },
+      {
+        q: "A csúcsból a szemközti oldal egyenesére bocsátott merőleges szakasz.",
+        options: ["Súlyvonal", "Magasság", "Szögfelező", "Oldalfelező merőleges"],
+        answer: "Magasság"
+      },
+      {
+        q: "Azon pontok halmaza, amelyek egyenlő távolságra vannak a szög két szárától.",
+        options: ["Középvonal", "Belső szögfelező", "Magasságvonal", "Súlyvonal"],
+        answer: "Belső szögfelező"
+      },
+      {
+        q: "A háromszög azon pontja, amely a háromszög mindhárom oldalegyenesétől azonos távolságra fekszik.",
+        options: ["Súlypont", "Beírt kör középpontja", "Magasságpont", "Körülírt kör középpontja"],
+        answer: "Beírt kör középpontja"
+      }
     ];
 
     const prizeValues = [10000, 50000, 100000, 250000, 500000, 1000000, 5000000];
