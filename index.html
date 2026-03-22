@@ -24,13 +24,25 @@
         h1 {
             color: #e5a93c;
             font-size: 2rem;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-shadow: 0 0 10px rgba(229, 169, 60, 0.5);
+        }
+        #money-board {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff66; /* Zöld "pénz" szín */
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+            background-color: #03033d;
+            border: 1px solid #00ff66;
+            padding: 10px;
+            border-radius: 15px;
+            display: inline-block;
         }
         #question {
             font-size: 1.2rem;
             font-weight: bold;
-            margin: 20px 0;
+            margin: 10px 0 20px 0;
             padding: 20px;
             background-color: #03033d;
             border: 2px solid #e5a93c;
@@ -64,15 +76,6 @@
             color: #000000;
             box-shadow: 0 0 15px #e5a93c;
         }
-        #score-board {
-            margin-top: 30px;
-            font-size: 1.2rem;
-            color: #aaa;
-        }
-        #score-board span {
-            color: #e5a93c;
-            font-weight: bold;
-        }
         #result-area {
             background-color: #03033d;
             border: 2px solid #e5a93c;
@@ -100,80 +103,60 @@
     <h1>Legyen Ön is Geometria Milliomos!</h1>
     
     <div id="quiz-area">
+        <div id="money-board">Nyeremény: <span id="prize-money">0 Ft</span></div>
         <div id="question">Kérdés betöltése...</div>
-        <div id="options">
-        </div>
-        <div id="score-board">Helyes válaszok: <span id="score">0</span> / <span id="total">0</span></div>
+        <div id="options"></div>
     </div>
     
     <div id="result-area" class="hidden">
-        <h2>Vége a kvíznek!</h2>
-        <p>Elért eredményed: <span id="final-score" style="color: #e5a93c; font-weight: bold; font-size: 1.5rem;">0</span></p>
+        <h2 id="final-message">Vége a játéknak!</h2>
+        <p>Elvitt nyeremény: <br><span id="final-score" style="color: #00ff66; font-weight: bold; font-size: 2rem;">0 Ft</span></p>
         <button class="btn" style="margin-top: 20px; width: 100%;" onclick="startGame()">Új játék indítása</button>
     </div>
 </div>
 
 <script>
-    // Faktuális, komolyabb állítások
+    // Faktuális kérdések
     const questions = [
-        { 
-            q: "Az a szakasz, amely a háromszög csúcsát a szemközti oldal felezőpontjával köti össze.", 
-            options: ["Súlyvonal", "Magasságvonal", "Szögfelező", "Oldalfelező merőleges"], 
-            answer: "Súlyvonal" 
-        },
-        { 
-            q: "Ezen vonalak metszéspontja a háromszög súlypontja, amely a szakaszokat a csúcstól számítva 2:1 arányban osztja fel.", 
-            options: ["Magasságvonalak", "Súlyvonalak", "Oldalfelező merőlegesek", "Szögfelezők"], 
-            answer: "Súlyvonalak" 
-        },
-        { 
-            q: "Azon pontok halmaza, amelyek egyenlő távolságra vannak a szög két szárától.", 
-            options: ["Súlyvonal", "Középvonal", "Belső szögfelező", "Magasságvonal"], 
-            answer: "Belső szögfelező" 
-        },
-        { 
-            q: "Ezen vonalak metszéspontja adja meg a háromszögbe írható kör középpontját.", 
-            options: ["Súlyvonalak", "Oldalfelező merőlegesek", "Magasságvonalak", "Belső szögfelezők"], 
-            answer: "Belső szögfelezők" 
-        },
-        { 
-            q: "A csúcsból a szemközti oldal egyenesére bocsátott merőleges szakasz.", 
-            options: ["Oldalfelező merőleges", "Magasságvonal", "Súlyvonal", "Szögfelező"], 
-            answer: "Magasságvonal" 
-        },
-        { 
-            q: "Merőleges a háromszög adott oldalára, és átmegy annak felezőpontján. Nem feltétlenül megy át a szemközti csúcson.", 
-            options: ["Magasságvonal", "Oldalfelező merőleges", "Súlyvonal", "Belső szögfelező"], 
-            answer: "Oldalfelező merőleges" 
-        },
-        { 
-            q: "Ezen vonalak metszéspontja határozza meg a háromszög köré írható kör középpontját.", 
-            options: ["Súlyvonalak", "Belső szögfelezők", "Oldalfelező merőlegesek", "Magasságvonalak"], 
-            answer: "Oldalfelező merőlegesek" 
-        }
+        { q: "Az a szakasz, amely a háromszög csúcsát a szemközti oldal felezőpontjával köti össze.", options: ["Súlyvonal", "Magasságvonal", "Szögfelező", "Oldalfelező merőleges"], answer: "Súlyvonal" },
+        { q: "Ezen vonalak metszéspontja a háromszög súlypontja, amely a szakaszokat a csúcstól számítva 2:1 arányban osztja fel.", options: ["Magasságvonalak", "Súlyvonalak", "Oldalfelező merőlegesek", "Szögfelezők"], answer: "Súlyvonalak" },
+        { q: "Azon pontok halmaza, amelyek egyenlő távolságra vannak a szög két szárától.", options: ["Súlyvonal", "Középvonal", "Belső szögfelező", "Magasságvonal"], answer: "Belső szögfelező" },
+        { q: "Ezen vonalak metszéspontja adja meg a háromszögbe írható kör középpontját.", options: ["Súlyvonalak", "Oldalfelező merőlegesek", "Magasságvonalak", "Belső szögfelezők"], answer: "Belső szögfelezők" },
+        { q: "A csúcsból a szemközti oldal egyenesére bocsátott merőleges szakasz.", options: ["Oldalfelező merőleges", "Magasságvonal", "Súlyvonal", "Szögfelező"], answer: "Magasságvonal" },
+        { q: "Merőleges a háromszög adott oldalára, és átmegy annak felezőpontján. Nem feltétlenül megy át a szemközti csúcson.", options: ["Magasságvonal", "Oldalfelező merőleges", "Súlyvonal", "Belső szögfelező"], answer: "Oldalfelező merőleges" },
+        { q: "Ezen vonalak metszéspontja határozza meg a háromszög köré írható kör középpontját.", options: ["Súlyvonalak", "Belső szögfelezők", "Oldalfelező merőlegesek", "Magasságvonalak"], answer: "Oldalfelező merőlegesek" }
     ];
 
+    // Nyereménylétra (7 kérdéshez 7 lépcsőfok + a 0. szint)
+    const prizeLadder = [0, 10000, 50000, 100000, 250000, 500000, 1000000, 5000000];
+    
     let currentQuestionIndex = 0;
     let score = 0;
+    let currentPrize = 0;
 
     const questionEl = document.getElementById('question');
     const optionsEl = document.getElementById('options');
-    const scoreEl = document.getElementById('score');
-    const totalEl = document.getElementById('total');
+    const prizeMoneyEl = document.getElementById('prize-money');
     const quizArea = document.getElementById('quiz-area');
     const resultArea = document.getElementById('result-area');
     const finalScoreEl = document.getElementById('final-score');
+    const finalMessageEl = document.getElementById('final-message');
 
     function startGame() {
         currentQuestionIndex = 0;
         score = 0;
-        scoreEl.innerText = score;
-        totalEl.innerText = questions.length;
+        currentPrize = 0;
+        updatePrizeDisplay();
         
         quizArea.classList.remove('hidden');
         resultArea.classList.add('hidden');
         
         loadQuestion();
+    }
+
+    function updatePrizeDisplay() {
+        // Magyar formátumú pénzmegjelenítés (pl. 10 000 Ft)
+        prizeMoneyEl.innerText = currentPrize.toLocaleString('hu-HU') + " Ft";
     }
 
     function loadQuestion() {
@@ -194,24 +177,39 @@
 
     function checkAnswer(selectedOption) {
         const currentQ = questions[currentQuestionIndex];
+        
         if (selectedOption === currentQ.answer) {
+            // Helyes válasz
             score++;
-            scoreEl.innerText = score;
-        }
+            currentPrize = prizeLadder[score];
+            updatePrizeDisplay();
+            
+            currentQuestionIndex++;
 
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex < questions.length) {
-            loadQuestion();
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion(); // Jöhet a következő
+            } else {
+                showResult(true); // Megnyerte a játékot (7/7)
+            }
         } else {
-            showResult();
+            // Helytelen válasz -> azonnali játék vége
+            showResult(false);
         }
     }
 
-    function showResult() {
+    function showResult(isWin) {
         quizArea.classList.add('hidden');
         resultArea.classList.remove('hidden');
-        finalScoreEl.innerText = `${score} / ${questions.length}`;
+        
+        if (isWin) {
+            finalMessageEl.innerText = "Zseniális! Megnyerted a fődíjat!";
+            finalMessageEl.style.color = "#e5a93c";
+        } else {
+            finalMessageEl.innerText = "Sajnos rossz válasz. A játéknak vége!";
+            finalMessageEl.style.color = "#ff4444";
+        }
+        
+        finalScoreEl.innerText = currentPrize.toLocaleString('hu-HU') + " Ft";
     }
 
     startGame();
