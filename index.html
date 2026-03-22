@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometria Kvíz</title>
+    <title>Geometria Milliomos</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background: radial-gradient(circle, #0a0a2a 0%, #000000 100%);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,78 +17,140 @@
             text-align: center;
         }
         #game-container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 600px;
+            padding: 20px;
         }
         h1 {
-            color: #0066cc;
-            font-size: 1.5rem;
-            margin-bottom: 5px;
+            color: #e5a93c;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(229, 169, 60, 0.5);
         }
         #question {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: bold;
             margin: 20px 0;
-            padding: 15px;
-            background-color: #e6f2ff;
-            border-radius: 10px;
+            padding: 20px;
+            background-color: #03033d;
+            border: 2px solid #e5a93c;
+            border-radius: 50px;
+            box-shadow: 0 0 15px rgba(229, 169, 60, 0.3);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
         }
         .btn {
-            background-color: #0066cc;
-            color: white;
-            border: none;
+            background-color: #000000;
+            color: #e5a93c;
+            border: 2px solid #e5a93c;
             padding: 15px;
-            margin: 10px 0;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 1.2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.3s;
+            position: relative;
         }
         .btn:hover {
-            background-color: #0052a3;
+            background-color: #e5a93c;
+            color: #000000;
+            box-shadow: 0 0 15px #e5a93c;
         }
         #score-board {
-            margin-top: 20px;
-            font-size: 1.1rem;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+        #score-board span {
+            color: #e5a93c;
             font-weight: bold;
-            color: #555;
+        }
+        #result-area {
+            background-color: #03033d;
+            border: 2px solid #e5a93c;
+            border-radius: 20px;
+            padding: 30px;
         }
         .hidden {
-            display: none;
+            display: none !important;
+        }
+        
+        @media (max-width: 500px) {
+            #options {
+                grid-template-columns: 1fr;
+            }
+            #question {
+                font-size: 1.1rem;
+                border-radius: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div id="game-container">
-    <h1>Trigonometria Villámkvíz</h1>
+    <h1>Legyen Ön is Geometria Milliomos!</h1>
+    
     <div id="quiz-area">
         <div id="question">Kérdés betöltése...</div>
         <div id="options">
-            </div>
-        <div id="score-board">Pontszám: <span id="score">0</span> / <span id="total">0</span></div>
+        </div>
+        <div id="score-board">Helyes válaszok: <span id="score">0</span> / <span id="total">0</span></div>
     </div>
     
     <div id="result-area" class="hidden">
-        <h2>Vége a játéknak!</h2>
-        <p>Elért pontszámod: <span id="final-score">0</span></p>
-        <button class="btn" onclick="startGame()">Új játék</button>
+        <h2>Vége a kvíznek!</h2>
+        <p>Elért eredményed: <span id="final-score" style="color: #e5a93c; font-weight: bold; font-size: 1.5rem;">0</span></p>
+        <button class="btn" style="margin-top: 20px; width: 100%;" onclick="startGame()">Új játék indítása</button>
     </div>
 </div>
 
 <script>
-    // Itt tudod módosítani a kérdéseket!
+    // Faktuális, komolyabb állítások
     const questions = [
-        { q: "sin(30°)", options: ["0.5", "1", "0", "0.866"], answer: "0.5" },
-        { q: "cos(60°)", options: ["1", "0.5", "0.707", "0"], answer: "0.5" },
-        { q: "tan(45°)", options: ["0", "0.5", "1", "Nincs értelmezve"], answer: "1" },
-        { q: "sin²(x) + cos²(x) =", options: ["0", "2", "x", "1"], answer: "1" },
-        { q: "cos(90°)", options: ["1", "0", "-1", "0.5"], answer: "0" }
+        { 
+            q: "Az a szakasz, amely a háromszög csúcsát a szemközti oldal felezőpontjával köti össze.", 
+            options: ["Súlyvonal", "Magasságvonal", "Szögfelező", "Oldalfelező merőleges"], 
+            answer: "Súlyvonal" 
+        },
+        { 
+            q: "Ezen vonalak metszéspontja a háromszög súlypontja, amely a szakaszokat a csúcstól számítva 2:1 arányban osztja fel.", 
+            options: ["Magasságvonalak", "Súlyvonalak", "Oldalfelező merőlegesek", "Szögfelezők"], 
+            answer: "Súlyvonalak" 
+        },
+        { 
+            q: "Azon pontok halmaza, amelyek egyenlő távolságra vannak a szög két szárától.", 
+            options: ["Súlyvonal", "Középvonal", "Belső szögfelező", "Magasságvonal"], 
+            answer: "Belső szögfelező" 
+        },
+        { 
+            q: "Ezen vonalak metszéspontja adja meg a háromszögbe írható kör középpontját.", 
+            options: ["Súlyvonalak", "Oldalfelező merőlegesek", "Magasságvonalak", "Belső szögfelezők"], 
+            answer: "Belső szögfelezők" 
+        },
+        { 
+            q: "A csúcsból a szemközti oldal egyenesére bocsátott merőleges szakasz.", 
+            options: ["Oldalfelező merőleges", "Magasságvonal", "Súlyvonal", "Szögfelező"], 
+            answer: "Magasságvonal" 
+        },
+        { 
+            q: "Merőleges a háromszög adott oldalára, és átmegy annak felezőpontján. Nem feltétlenül megy át a szemközti csúcson.", 
+            options: ["Magasságvonal", "Oldalfelező merőleges", "Súlyvonal", "Belső szögfelező"], 
+            answer: "Oldalfelező merőleges" 
+        },
+        { 
+            q: "Ezen vonalak metszéspontja határozza meg a háromszög köré írható kör középpontját.", 
+            options: ["Súlyvonalak", "Belső szögfelezők", "Oldalfelező merőlegesek", "Magasságvonalak"], 
+            answer: "Oldalfelező merőlegesek" 
+        }
     ];
 
     let currentQuestionIndex = 0;
@@ -107,9 +169,10 @@
         score = 0;
         scoreEl.innerText = score;
         totalEl.innerText = questions.length;
+        
         quizArea.classList.remove('hidden');
-        resultArea.classList.remove('hidden');
         resultArea.classList.add('hidden');
+        
         loadQuestion();
     }
 
@@ -118,10 +181,11 @@
         const currentQ = questions[currentQuestionIndex];
         questionEl.innerText = currentQ.q;
 
-        // Gombok létrehozása a válaszoknak
-        currentQ.options.forEach(option => {
+        const labels = ['A:', 'B:', 'C:', 'D:'];
+
+        currentQ.options.forEach((option, index) => {
             const button = document.createElement('button');
-            button.innerText = option;
+            button.innerHTML = `<span style="color: white; margin-right: 10px;">${labels[index]}</span> ${option}`;
             button.classList.add('btn');
             button.onclick = () => checkAnswer(option);
             optionsEl.appendChild(button);
@@ -150,7 +214,6 @@
         finalScoreEl.innerText = `${score} / ${questions.length}`;
     }
 
-    // Játék indítása az oldal betöltésekor
     startGame();
 </script>
 
